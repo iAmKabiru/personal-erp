@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Personal ERP · 7 Habits</title>
+<style>
+:root{--bg:#f6f7f5;--card:#fff;--ink:#1c2420;--muted:#6b7670;--line:#e4e8e4;--accent:#2f6f5e;--soft:#e6f0ec;--warn:#b5524a;
+--r1:#2f6f5e;--r2:#3b82a0;--r3:#c9833a;--r4:#8a5fa8;--r5:#b5524a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121715;--card:#1a211e;--ink:#e8eeea;--muted:#8d9a93;--line:#2a332f;--accent:#5fb89e;--soft:#20302a}}
+:root[data-theme="dark"]{--bg:#121715;--card:#1a211e;--ink:#e8eeea;--muted:#8d9a93;--line:#2a332f;--accent:#5fb89e;--soft:#20302a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;display:flex;min-height:100vh}
+aside{width:248px;background:var(--card);border-right:1px solid var(--line);padding:22px 14px;position:sticky;top:0;height:100vh;overflow:auto;flex-shrink:0;display:flex;flex-direction:column}
+.brand{font-weight:700;font-size:16px;padding:0 10px 18px;display:flex;gap:10px;align-items:center}
+.brand i{width:28px;height:28px;border-radius:8px;background:var(--accent);display:inline-block}
+.grp{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:14px 10px 6px}
+nav{flex:1}
+nav button{all:unset;box-sizing:border-box;width:100%;display:flex;gap:10px;align-items:center;padding:9px 10px;border-radius:8px;cursor:pointer;color:var(--muted);font-size:13.5px}
+nav button:hover{background:var(--soft);color:var(--ink)}
+nav button.on{background:var(--soft);color:var(--accent);font-weight:600}
+nav b{width:22px;height:22px;border-radius:6px;border:1px solid var(--line);display:grid;place-items:center;font-size:11px;font-weight:600;flex-shrink:0}
+nav button.on b{background:var(--accent);color:#fff;border-color:var(--accent)}
+.st{font-size:11.5px;color:var(--muted);padding:12px 10px 0;border-top:1px solid var(--line);margin-top:10px}
+.st.bad{color:var(--warn)}
+main{flex:1;min-width:0;padding:28px 32px 48px;max-width:1280px}
+h1{font-size:22px;margin:0 0 2px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 22px}
+.grid{display:grid;gap:16px;margin-bottom:16px}
+.kpis{grid-template-columns:repeat(4,1fr)}
+.g2{grid-template-columns:1fr 1.6fr}.g3{grid-template-columns:1.6fr 1fr}.g4{grid-template-columns:1fr 1fr}
+.three{grid-template-columns:1fr 1fr 1fr}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;min-width:0}
+.card h3{margin:0 0 2px;font-size:14px}
+.card p.d{margin:0 0 12px;color:var(--muted);font-size:12px}
+.kpi .v{font-size:28px;font-weight:700;letter-spacing:-.02em;margin-top:6px}
+.kpi .l{color:var(--muted);font-size:12px}.kpi .t{font-size:12px;color:var(--accent);margin-top:2px}
+.ch{position:relative;height:240px}
+ul.pr{list-style:none;margin:0;padding:0}
+ul.pr li{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+ul.pr li:last-child{border:0}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tag{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:1px 8px;white-space:nowrap}
+.sp{margin-left:auto}
+.pill{display:inline-block;font-size:11px;background:var(--soft);color:var(--accent);border-radius:20px;padding:2px 10px;margin-bottom:10px}
+.note,.empty{margin:14px 0 0;color:var(--muted);font-size:12px}
+form.frm{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+input,select,textarea,.btn{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+input[name=title],input[name=note]{flex:1;min-width:180px}
+input[type=number]{width:80px}
+.btn{cursor:pointer;background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.danger{background:var(--warn);border-color:var(--warn)}
+textarea{width:100%;height:150px;font:12px/1.4 ui-monospace,Menlo,monospace;resize:vertical}
+.x{all:unset;cursor:pointer;color:var(--muted);padding:0 6px}.x:hover{color:var(--warn)}
+input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
+li.dn .tt{text-decoration:line-through;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{padding:7px 6px;text-align:center;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+td.c{cursor:pointer;color:var(--muted)}td.c.y{color:var(--accent);font-weight:700;background:var(--soft)}
+.dims{display:flex;gap:10px;flex-wrap:wrap}.dims .btn{flex:1;min-width:120px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.mh{margin:26px 0 10px}.mh h3{margin:0;font-size:15px}.mh p{margin:2px 0 0;color:var(--muted);font-size:12px}
+.mi{display:flex;gap:8px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}.mi:last-child{border:0}
+.mf{flex:1;display:flex;flex-wrap:wrap;gap:8px;min-width:0}.mf input,.mf select{flex:1 1 120px;min-width:0}.mf input[type=number]{flex:0 0 80px}
+textarea.pl{font:inherit;width:100%;height:70px;resize:vertical}textarea.big{height:130px}.mf textarea.pl{flex:1 1 100%;width:auto;min-width:0}
+.grid .mf input,.grid .mf select{flex:1 1 100%}
+.mi.dn .mf,li.dn .mf{opacity:.55}.ms{margin-bottom:16px;border-left:3px solid var(--accent)}
+#toast{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:12.5px;opacity:0;transition:opacity .25s;pointer-events:none}
+#toast.on{opacity:1}
+@media (max-width:900px){body{flex-direction:column}
+aside{width:100%;height:auto;position:static;padding:12px;border-right:0;border-bottom:1px solid var(--line)}
+nav{display:flex;gap:6px;overflow-x:auto;flex:none}nav button{width:auto;white-space:nowrap}.grp,.st{display:none}.brand{padding-bottom:10px}
+main{padding:20px 16px 40px}.kpis{grid-template-columns:1fr 1fr}.g2,.g3,.g4,.three{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<aside><div class="brand"><i></i>Personal ERP</div><nav id="nav"></nav><div class="st" id="st"></div></aside>
+<main id="main"></main>
+<div id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const H=[
+{t:"Be Proactive",s:"Circle of Influence",m:[["Influence sorter","Move worries into “I can act” or “let go”."],["Language log","Track “I have to” shifting to “I choose to”."],["Response journal","Trigger, reaction, better response."]]},
+{t:"Begin with the End in Mind",s:"Vision and mission",m:[["Mission statement","Editable, with version history."],["Role cards","Vision, goals and status for each role."],["10-year vision","Long-term goals linked to roles."]]},
+{t:"Put First Things First",s:"Execution: plan the week by role and quadrant"},
+{t:"Think Win-Win",s:"Emotional Bank Account: log deposits and withdrawals"},
+{t:"Seek First to Understand",s:"Listening",m:[["Conversation prep","Notes before important conversations."],["Listening log","What I heard vs. what I assumed."],["Follow-ups","Reminders for people who matter."]]},
+{t:"Synergize",s:"Collaboration",m:[["Ideas lab","My view, their view, combined solution."],["Collaboration board","Shared projects at a glance."],["Strengths map","Who complements what."]]},
+{t:"Sharpen the Saw",s:"Renewal: tick the four dimensions daily"}];
+const ROLES=["Engineer","Mentee","Husband","Father","Son"],RC=["--r1","--r2","--r3","--r4","--r5"];
+const DIMS=["p","m","s","e"],DN={p:"Physical",m:"Mental",s:"Spiritual",e:"Social / Emotional"};
+const QN={1:"Q1 Urgent + Important",2:"Q2 Important",3:"Q3 Urgent",4:"Q4 Neither"};
+const PEOPLE=["Spouse","Children","Mentor","Parents","Colleagues"];
+const KEY="personal-erp:v1";
+const z=n=>String(n).padStart(2,"0");
+const dk=d=>d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate());
+const pd=s=>{const[a,b,c]=s.split("-").map(Number);return new Date(a,b-1,c)};
+const addD=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return dk(d)};
+const today=()=>dk(new Date());
+const mon=s=>addD(s,-((pd(s).getDay()+6)%7));
+const uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+/* ---------- storage layer: one versioned document, last write wins on a fresh read ---------- */
+let mem=null,ok=true,S=null,page=0,charts=[],armed=false;
+function read(){try{const r=localStorage.getItem(KEY);if(r){const o=JSON.parse(r);if(o&&o.data&&o.data.tasks){ensure(o.data);return o}}ok=true}catch(e){ok=false}return mem}
+function write(o){mem=o;try{localStorage.setItem(KEY,JSON.stringify(o));ok=true}catch(e){ok=false}}
+function seed(){let s=7;const R=()=>(s=(s*16807)%2147483647)/2147483647;
+const T=[["Ship feature branch","Practice DSA set","Review architecture"],["Mentor session","Read ML paper","Portfolio build"],["Date night","Plan weekend","Listen well"],["Homework help","Story time","Play outside"],["Call home","Visit family","Help with errands"]];
+const D={tasks:[],bank:[],ren:{}},t=today(),m=mon(t);
+for(let w=7;w>=0;w--)for(let i=0;i<14;i++){const r=Math.floor(R()*5),date=addD(m,-7*w+Math.floor(R()*7));
+D.tasks.push({id:uid(),title:T[r][Math.floor(R()*3)],role:r,q:R()<.35+(7-w)*.04?2:[1,3,4][Math.floor(R()*3)],hrs:1+Math.floor(R()*3),date,done:date<=t&&R()<.8})}
+for(let i=0;i<60;i++)D.bank.push({id:uid(),person:PEOPLE[Math.floor(R()*5)],type:R()<.5+(60-i)*-.003+.28?"dep":"wd",note:"",date:addD(t,-Math.floor(R()*56))});
+for(let i=0;i<56;i++){const p=.35+(56-i)*-.004+.3,r={};DIMS.forEach(k=>{if(R()<p)r[k]=1});D.ren[addD(t,-i)]=r}
+return ensure(D)}
+function load(){S=read();if(!S){S={rev:0,at:Date.now(),data:seed()};write(S)}}
+function mutate(fn,quiet){const c=read()||S;fn(c.data);c.rev=(c.rev||0)+1;c.at=Date.now();S=c;write(S);quiet?nav():render()}
+function toast(t){const e=document.getElementById("toast");e.textContent=t;e.className="on";clearTimeout(toast.h);toast.h=setTimeout(()=>e.className="",2200)}
+function sync(){const n=read();if(n&&(!S||n.rev!==S.rev||n.at!==S.at)){S=n;const a=document.activeElement;if(!(a&&/INPUT|TEXTAREA/.test(a.tagName)&&a.value))render();toast("Synced from another tab")}}
+addEventListener("storage",e=>{if(e.key===KEY||e.key===null)sync()});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)sync()});
+
+/* ---------- derived numbers ---------- */
+function calc(){
+const D=S.data,t0=today(),m=mon(t0);
+const inW=(x,w)=>{const a=addD(m,-7*w);return x>=a&&x<=addD(a,6)};
+const tw=w=>D.tasks.filter(x=>inW(x.date,w));
+const sum=a=>a.reduce((s,x)=>s+x.hrs,0);
+const q2=w=>{const t=tw(w),s=sum(t);return s?Math.round(100*sum(t.filter(x=>x.q===2))/s):null};
+const rs=w=>{let c=0;for(let i=0;i<7;i++){const r=D.ren[addD(m,-7*w+i)];if(r)c+=DIMS.filter(k=>r[k]).length}return Math.round(c/28*100)};
+const bk=w=>{const b=D.bank.filter(x=>inW(x.date,w));return b.length?Math.round(100*b.filter(x=>x.type==="dep").length/b.length):null};
+let st=0,d=t0;if(!DIMS.some(k=>(D.ren[d]||{})[k]))d=addD(d,-1);
+while(DIMS.some(k=>(D.ren[d]||{})[k])){st++;d=addD(d,-1)}
+const cur=tw(0),qd=[1,2,3,4].map(q=>[0,1,2,3,4,5,6].map(i=>sum(cur.filter(x=>x.q===q&&x.date===addD(m,i)))));
+const rad=DIMS.map(k=>Math.round(100*[0,1,2,3,4,5,6].filter(i=>(D.ren[addD(t0,-i)]||{})[k]).length/7));
+const b30=D.bank.filter(x=>x.date>=addD(t0,-30)),people=[...new Set(b30.map(x=>x.person))];
+return{cur,roleH:ROLES.map((_,i)=>sum(cur.filter(x=>x.role===i))),qd,rad,st,q2n:q2(0)||0,q2d:(q2(0)||0)-(q2(1)||0),rn:rs(0),rd:rs(0)-rs(1),
+done:cur.filter(x=>x.done).length,
+trend:[7,6,5,4,3,2,1,0].map(w=>({q:q2(w),b:bk(w),r:rs(w)})),
+people,dep:people.map(p=>b30.filter(x=>x.person===p&&x.type==="dep").length),wd:people.map(p=>b30.filter(x=>x.person===p&&x.type==="wd").length),
+todayT:D.tasks.filter(x=>x.date===t0)}}
+const dl=n=>n>0?"▲ "+n+" pts vs. last week":n<0?"▼ "+(-n)+" pts vs. last week":"No change vs. last week";
+
+/* ---------- views ---------- */
+function nav(){const el=document.getElementById("nav");
+let h=`<button class="${page===0?"on":""}" data-p="0"><b>◎</b>Dashboard</button><div class="grp">The 7 Habits</div>`;
+H.forEach((x,i)=>h+=`<button class="${page===i+1?"on":""}" data-p="${i+1}"><b>${i+1}</b>${x.t}</button>`);
+h+=`<div class="grp">System</div><button class="${page===8?"on":""}" data-p="8"><b>⛁</b>Data</button>`;
+el.innerHTML=h;
+const s=document.getElementById("st");s.className="st"+(ok?"":" bad");
+s.textContent=ok?"Saved on this device · syncs across open tabs":"Storage blocked: changes last only until you close this tab"}
+function kill(){charts.forEach(c=>c.destroy());charts=[]}
+function render(){kill();nav();const m=document.getElementById("main");
+m.innerHTML=page===0?dash():page===8?dataPg():habit(page-1);if(page===0)draw()}
+function placeholder(x){return `<div class="grid three">${x.m.map(([a,b])=>`<div class="card"><h3>${a}</h3><p class="d" style="margin:6px 0 0">${b}</p></div>`).join("")}</div><p class="note">Planned module.</p>`}
+function habit(i){const x=H[i];let b=[h1,h2,planner,bank,h5,h6,renewal][i]();
+return `<span class="pill">Habit ${i+1}</span><h1>${x.t}</h1><p class="sub">${x.s}</p>${b}`}
+function planner(){const m=mon(today()),t=S.data.tasks.filter(x=>x.date>=m&&x.date<=addD(m,6)).sort((a,b)=>a.date<b.date?-1:1);
+return `<form class="card frm" data-f="task"><input name="title" placeholder="Big rock or task" required>
+<select name="role">${ROLES.map((r,i)=>`<option value="${i}">${r}</option>`).join("")}</select>
+<select name="q">${[2,1,3,4].map(q=>`<option value="${q}">${QN[q]}</option>`).join("")}</select>
+<input name="hrs" type="number" min="0.5" step="0.5" value="1" title="Hours"><input name="date" type="date" value="${today()}"><button class="btn">Add</button></form>
+<div class="card"><h3>This week</h3><p class="d">Tasks dated ${m} to ${addD(m,6)}</p>${t.length?`<ul class="pr">${t.map(x=>`<li class="${x.done?"dn":""}"><input type="checkbox" data-a="done" data-id="${x.id}" ${x.done?"checked":""}><span class="dot" style="background:var(${RC[x.role]})"></span><div class="mf">${fld("tasks",x,"title","t","Task")}${fld("tasks",x,"role","sn",RO)}${fld("tasks",x,"q","sn",QN)}${fld("tasks",x,"hrs","n")}${fld("tasks",x,"date","d")}</div><button class="x" data-a="del" data-id="${x.id}" title="Delete">✕</button></li>`).join("")}</ul>`:`<p class="empty">Nothing planned this week yet.</p>`}</div>`}
+function bank(){const b=[...S.data.bank].sort((a,c)=>a.date<c.date?1:-1).slice(0,15);
+return `<form class="card frm" data-f="bank"><input name="person" list="pp" placeholder="Person" required><datalist id="pp">${PEOPLE.map(p=>`<option value="${p}">`).join("")}</datalist>
+<select name="type"><option value="dep">Deposit</option><option value="wd">Withdrawal</option></select><input name="note" placeholder="What happened? (optional)"><button class="btn">Log</button></form>
+<div class="card"><h3>Recent entries</h3><p class="d">Latest 15</p>${b.length?`<ul class="pr">${b.map(x=>`<li><div class="mf">${fld("bank",x,"person","t","Person")}${fld("bank",x,"type","s",BT)}${fld("bank",x,"note","t","Note")}${fld("bank",x,"date","d")}</div><button class="x" data-a="delb" data-id="${x.id}" title="Delete">✕</button></li>`).join("")}</ul>`:`<p class="empty">No entries yet.</p>`}</div>`}
+function renewal(){const t=today(),R=S.data.ren,days=[...Array(14)].map((_,i)=>addD(t,-i));
+return `<div class="card" style="margin-bottom:16px"><h3>Today</h3><p class="d">Tap to tick or untick</p><div class="dims">${DIMS.map(k=>`<button class="btn ${(R[t]||{})[k]?"":"ghost"}" data-a="ren" data-d="${t}" data-k="${k}">${(R[t]||{})[k]?"✓ ":""}${DN[k]}</button>`).join("")}</div></div>
+<div class="card"><h3>Last 14 days</h3><p class="d">Click any cell to edit</p><div style="overflow-x:auto"><table><tr><th>Day</th>${DIMS.map(k=>`<th>${DN[k]}</th>`).join("")}</tr>${days.map(d=>`<tr><td>${d.slice(5)}</td>${DIMS.map(k=>{const y=(R[d]||{})[k];return `<td class="c ${y?"y":""}" data-a="ren" data-d="${d}" data-k="${k}">${y?"✓":"·"}</td>`}).join("")}</tr>`).join("")}</table></div></div>`}
+function dash(){const c=calc();
+return `<h1>Dashboard</h1><p class="sub">Your week at a glance · live from your data</p>${S.data.mission.text?`<div class="card ms"><h3>My mission</h3><p style="margin:4px 0 0">${esc(S.data.mission.text)}</p></div>`:""}
+<div class="grid kpis">
+<div class="card kpi"><div class="l">Renewal score</div><div class="v">${c.rn}%</div><div class="t">${dl(c.rd)}</div></div>
+<div class="card kpi"><div class="l">Time in Quadrant 2</div><div class="v">${c.q2n}%</div><div class="t">${dl(c.q2d)}</div></div>
+<div class="card kpi"><div class="l">Renewal streak</div><div class="v">${c.st} day${c.st===1?"":"s"}</div><div class="t">Sharpen the Saw</div></div>
+<div class="card kpi"><div class="l">Tasks done this week</div><div class="v">${c.done} / ${c.cur.length}</div><div class="t">${c.cur.length?Math.round(100*c.done/c.cur.length):0}% complete</div></div></div>
+<div class="grid g2"><div class="card"><h3>Time by role</h3><p class="d">Planned hours this week</p><div class="ch"><canvas id="c1"></canvas></div></div>
+<div class="card"><h3>Weekly time by quadrant</h3><p class="d">Hours per day, Q2 is where growth happens</p><div class="ch"><canvas id="c2"></canvas></div></div></div>
+<div class="grid g3"><div class="card"><h3>Habit consistency</h3><p class="d">Weekly: Q2 time share, deposit share, renewal score</p><div class="ch"><canvas id="c3"></canvas></div></div>
+<div class="card"><h3>Sharpen the Saw</h3><p class="d">Last 7 days by dimension</p><div class="ch"><canvas id="c4"></canvas></div></div></div>
+<div class="grid g4"><div class="card"><h3>Emotional Bank Account</h3><p class="d">Entries in the last 30 days</p><div class="ch"><canvas id="c5"></canvas></div></div>
+<div class="card"><h3>Today’s tasks</h3><p class="d">Tick them off as you go</p>${c.todayT.length?`<ul class="pr">${c.todayT.map(x=>`<li class="${x.done?"dn":""}"><input type="checkbox" data-a="done" data-id="${x.id}" ${x.done?"checked":""}><span class="dot" style="background:var(${RC[x.role]})"></span><span class="tt">${esc(x.title)}</span><span class="sp tag">${ROLES[x.role]}</span></li>`).join("")}</ul>`:`<p class="empty">Nothing planned for today. Add tasks under Put First Things First.</p>`}</div></div>`}
+function dataPg(){const D=S.data,j=JSON.stringify(S.data,null,1),kb=(JSON.stringify(S).length/1024).toFixed(1);
+return `<h1>Data</h1><p class="sub">Stored in this browser’s local storage. Every open tab reads and writes the same record, so edits appear everywhere.</p>
+<div class="grid kpis"><div class="card kpi"><div class="l">Tasks</div><div class="v">${D.tasks.length}</div></div><div class="card kpi"><div class="l">Bank entries</div><div class="v">${D.bank.length}</div></div><div class="card kpi"><div class="l">Renewal days</div><div class="v">${Object.keys(D.ren).length}</div></div><div class="card kpi"><div class="l">Size · revision</div><div class="v">${kb} KB</div><div class="t">rev ${S.rev}</div></div></div>
+<div class="grid g4"><div class="card"><h3>Export</h3><p class="d">Copy this JSON to back up or move to another device</p><textarea id="ex" readonly>${esc(j)}</textarea><div class="row"><button class="btn" data-a="copy">Copy JSON</button></div></div>
+<div class="card"><h3>Import</h3><p class="d">Paste exported JSON here. It replaces current data.</p><form data-f="imp"><textarea name="json" placeholder="Paste JSON"></textarea><div class="row"><button class="btn">Import</button></div></form></div></div>
+<div class="card"><h3>Reset</h3><p class="d">Sample data only replaces tasks, bank entries and renewal days. Clear removes everything, including your mission and notes.</p><div class="row"><button class="btn ghost" data-a="sample">Load sample data</button><button class="btn danger" data-a="clear">${armed?"Click again to confirm":"Clear all data"}</button></div></div>`}
+
+/* ---------- editable modules ---------- */
+const ZONE={influence:"Influence",concern:"Concern",letgo:"Let go"},CS={todo:"To do",doing:"In progress",done:"Done"},RS={ok:"On track",watch:"Needs attention",low:"Neglected"},BT={dep:"Deposit",wd:"Withdrawal"},RO=Object.fromEntries(ROLES.map((r,i)=>[i,r]));
+const MODS={
+circle:{fields:[["text","t","What’s on your mind?"],["zone","s",ZONE]],gf:"zone",groups:ZONE},
+lang:{fields:[["from","t","“I have to…”"],["to","t","“I choose to…”"],["date","d"]]},
+resp:{fields:[["trigger","t","Trigger"],["reaction","a","My reaction"],["better","a","A better response"],["date","d"]]},
+conv:{fields:[["person","t","Person"],["prep","a","Preparation"],["debrief","a","Debrief"],["date","d"]]},
+listen:{fields:[["heard","a","What I heard"],["assumed","a","What I assumed"],["date","d"]]},
+fu:{fields:[["person","t","Person"],["note","t","Follow up on…"],["due","d"]],done:1},
+idea:{fields:[["problem","t","Problem"],["mine","a","My view"],["theirs","a","Their view"],["combined","a","Combined solution"]]},
+collab:{fields:[["title","t","Project"],["with","t","With whom"],["status","s",CS]],gf:"status",groups:CS},
+str:{fields:[["person","t","Person"],["strength","t","Strength"],["gap","t","Gap I can complement"]]}};
+function ensure(D){const E={mission:{text:"",history:[]},v10:"",roles:ROLES.map(()=>({vision:"",goals:"",status:"ok"})),circle:[],lang:[],resp:[],conv:[],listen:[],fu:[],idea:[],collab:[],str:[]};for(const k in E)if(D[k]===undefined)D[k]=E[k];return D}
+function fld(c,x,f,k,o){const a=`data-c="${c}" data-id="${x.id}" data-f="${f}" data-k="${k}"`,v=x[f];
+if(k==="a")return `<textarea class="pl" ${a} placeholder="${o}">${esc(v||"")}</textarea>`;
+if(k==="s"||k==="sn")return `<select ${a}>${Object.entries(o).map(([key,l])=>`<option value="${key}" ${String(v)===key?"selected":""}>${l}</option>`).join("")}</select>`;
+return `<input ${a} type="${k==="d"?"date":k==="n"?"number":"text"}" ${k==="n"?'step="0.5" min="0.5"':""} value="${esc(v??"")}" placeholder="${o||""}">`}
+function mod(key,btn){const m=MODS[key],L=S.data[key]||[],p=m.fields[0];
+const item=x=>`<div class="mi ${x.done?"dn":""}">${m.done?`<input type="checkbox" data-a="mdone" data-c="${key}" data-id="${x.id}" ${x.done?"checked":""}>`:""}<div class="mf">${m.fields.map(([f,k,o])=>fld(key,x,f,k,o)).join("")}</div><button class="x" data-a="mdel" data-c="${key}" data-id="${x.id}" title="Delete">✕</button></div>`;
+const form=`<form class="card frm" data-f="mod" data-m="${key}"><input name="p" placeholder="${p[2]}" required>${m.fields.filter(f=>f[1]==="s").map(([n,,o])=>`<select name="${n}">${Object.entries(o).map(([k,l])=>`<option value="${k}">${l}</option>`).join("")}</select>`).join("")}<button class="btn">${btn}</button></form>`;
+const body=m.gf?`<div class="grid three">${Object.entries(m.groups).map(([g,l])=>{const a=L.filter(x=>x[m.gf]===g);return `<div class="card"><h3>${l} <span class="tag">${a.length}</span></h3>${a.length?a.map(item).join(""):`<p class="empty">Nothing here yet.</p>`}</div>`}).join("")}</div>`:`<div class="card">${L.length?L.map(item).join(""):`<p class="empty" style="margin:0">Nothing yet. Add your first entry above.</p>`}</div>`;
+return form+body}
+const sec=(t,d,b)=>`<div class="mh"><h3>${t}</h3><p>${d}</p></div>${b}`;
+function h1(){return sec("Circle of Influence","Sort what’s on your mind. Spend your energy where you can act.",mod("circle","Add concern"))+sec("Language log","Catch reactive phrases and rewrite them proactively.",mod("lang","Add phrase"))+sec("Response journal","Trigger, reaction, and a better response next time.",mod("resp","Add trigger"))}
+function h5(){return sec("Conversation prep","Plan before, debrief after.",mod("conv","Add conversation"))+sec("Listening log","What you heard versus what you assumed.",mod("listen","Add entry"))+sec("Follow-ups","People who matter and what you owe them.",mod("fu","Add follow-up"))}
+function h6(){return sec("Ideas lab","Your view, their view, a combined solution.",mod("idea","Add idea"))+sec("Collaboration board","Shared projects by status. Change the status to move a card.",mod("collab","Add project"))+sec("Strengths map","Who complements what.",mod("str","Add person"))}
+function h2(){const D=S.data,m=D.mission;
+return sec("Personal mission statement","Edit freely. Earlier versions are kept so you can restore them.",`<div class="card"><textarea class="pl big" data-s="mission" placeholder="I exist to…">${esc(m.text)}</textarea>${m.history.length?`<p class="d" style="margin:12px 0 4px">Earlier versions</p><ul class="pr">${m.history.slice(0,5).map((h,i)=>`<li><span style="flex:1;min-width:0">${esc(h.text.slice(0,140))}</span><span class="tag">${dk(new Date(h.at)).slice(5)}</span><button class="btn ghost" data-a="mrest" data-i="${i}">Restore</button></li>`).join("")}</ul>`:""}</div>`)
++sec("Roles","A vision, goals and status for each role.",`<div class="grid three">${ROLES.map((r,i)=>{const x=D.roles[i]||{vision:"",goals:"",status:"ok"};return `<div class="card"><h3><span class="dot" style="display:inline-block;background:var(${RC[i]});margin-right:8px"></span>${r}</h3><textarea class="pl" style="margin-top:10px" data-s="role" data-i="${i}" data-f="vision" placeholder="Vision for this role">${esc(x.vision)}</textarea><textarea class="pl" style="margin-top:8px" data-s="role" data-i="${i}" data-f="goals" placeholder="Goals, one per line">${esc(x.goals)}</textarea><select data-s="role" data-i="${i}" data-f="status" style="margin-top:8px;width:100%">${Object.entries(RS).map(([k,l])=>`<option value="${k}" ${x.status===k?"selected":""}>${l}</option>`).join("")}</select></div>`}).join("")}</div>`)
++sec("10-year vision","Where do you want to be, and who do you want to be?",`<div class="card"><textarea class="pl big" data-s="v10" placeholder="In ten years…">${esc(D.v10)}</textarea></div>`)}
+
+/* ---------- charts ---------- */
+function draw(){const c=calc(),ink=css("--muted"),line=css("--line"),bg=css("--card");
+Chart.defaults.color=ink;Chart.defaults.font.family="Inter,system-ui,sans-serif";Chart.defaults.font.size=12;
+const rc=RC.map(css),base={responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"bottom",labels:{boxWidth:10,boxHeight:10,usePointStyle:true,padding:14}}}};
+const ax={grid:{color:line},border:{display:false}},nog={grid:{display:false},border:{color:line}};
+const mk=(id,cfg)=>charts.push(new Chart(document.getElementById(id),cfg));
+mk("c1",{type:"doughnut",data:{labels:ROLES,datasets:[{data:c.roleH,backgroundColor:rc,borderColor:bg,borderWidth:3}]},options:{...base,cutout:"66%"}});
+const qc=[rc[4],rc[0],rc[2],"#9aa59f"];
+mk("c2",{type:"bar",data:{labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],datasets:c.qd.map((d,i)=>({label:QN[i+1],data:d,backgroundColor:qc[i]}))},options:{...base,scales:{x:{...nog,stacked:true},y:{...ax,stacked:true}},datasets:{bar:{borderRadius:3,maxBarThickness:34}}}});
+const ln=(l,d,col)=>({label:l,data:d,borderColor:col,backgroundColor:col,tension:.35,pointRadius:3,borderWidth:2,spanGaps:true});
+mk("c3",{type:"line",data:{labels:["W-7","W-6","W-5","W-4","W-3","W-2","W-1","Now"],datasets:[ln("Q2 time share",c.trend.map(x=>x.q),rc[0]),ln("Deposit share",c.trend.map(x=>x.b),rc[1]),ln("Renewal score",c.trend.map(x=>x.r),rc[2])]},options:{...base,scales:{x:nog,y:{...ax,min:0,max:100}}}});
+mk("c4",{type:"radar",data:{labels:DIMS.map(k=>DN[k]),datasets:[{data:c.rad,borderColor:rc[0],backgroundColor:rc[0]+"33",pointBackgroundColor:rc[0],borderWidth:2}]},options:{...base,plugins:{legend:{display:false}},scales:{r:{min:0,max:100,ticks:{display:false},grid:{color:line},angleLines:{color:line},pointLabels:{color:ink}}}}});
+mk("c5",{type:"bar",data:{labels:c.people,datasets:[{label:"Deposits",data:c.dep,backgroundColor:rc[0]},{label:"Withdrawals",data:c.wd,backgroundColor:rc[4]}]},options:{...base,indexAxis:"y",scales:{x:ax,y:nog},datasets:{bar:{borderRadius:3,maxBarThickness:16}}}})}
+
+/* ---------- events ---------- */
+const M=document.getElementById("main");
+document.getElementById("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b){page=+b.dataset.p;armed=false;render();scrollTo(0,0)}});
+M.addEventListener("submit",e=>{e.preventDefault();const f=e.target,v=Object.fromEntries(new FormData(f)),k=f.dataset.f;
+if(k==="task")mutate(d=>d.tasks.push({id:uid(),title:v.title.trim(),role:+v.role,q:+v.q,hrs:+v.hrs||1,date:v.date||today(),done:false}));
+if(k==="bank")mutate(d=>d.bank.push({id:uid(),person:v.person.trim(),type:v.type,note:v.note.trim(),date:today()}));
+if(k==="mod"){const key=f.dataset.m,m=MODS[key],it={id:uid()};m.fields.forEach(([n,t,o])=>{it[n]=t==="d"?today():t==="s"?(v[n]||Object.keys(o)[0]):""});it[m.fields[0][0]]=(v.p||"").trim();if(m.done)it.done=false;mutate(d=>{(d[key]=d[key]||[]).push(it)})}
+if(k==="imp"){try{const o=JSON.parse(v.json);if(!Array.isArray(o.tasks)||!Array.isArray(o.bank)||typeof o.ren!=="object")throw 0;mutate(d=>{Object.keys(d).forEach(q=>delete d[q]);Object.assign(d,o);ensure(d)});toast("Imported")}catch(x){toast("That JSON isn’t a valid export")}}});
+M.addEventListener("click",e=>{const t=e.target.closest("[data-a]");if(!t)return;const a=t.dataset.a,id=t.dataset.id;
+if(a==="done")mutate(d=>{const x=d.tasks.find(y=>y.id===id);if(x)x.done=!x.done});
+if(a==="del")mutate(d=>{d.tasks=d.tasks.filter(y=>y.id!==id)});
+if(a==="delb")mutate(d=>{d.bank=d.bank.filter(y=>y.id!==id)});
+if(a==="ren")mutate(d=>{const r=d.ren[t.dataset.d]=d.ren[t.dataset.d]||{};r[t.dataset.k]?delete r[t.dataset.k]:r[t.dataset.k]=1});
+if(a==="sample"){armed=false;const s=seed();mutate(d=>{d.tasks=s.tasks;d.bank=s.bank;d.ren=s.ren});toast("Sample data loaded")}
+if(a==="mdone")mutate(d=>{const x=d[t.dataset.c].find(y=>y.id===id);if(x)x.done=!x.done});
+if(a==="mdel")mutate(d=>{d[t.dataset.c]=d[t.dataset.c].filter(y=>y.id!==id)});
+if(a==="mrest")mutate(d=>{const m=d.mission,h=m.history.splice(+t.dataset.i,1)[0];if(h){if(m.text.trim())m.history.unshift({text:m.text,at:Date.now()});m.text=h.text}});
+if(a==="clear"){if(!armed){armed=true;render();return}armed=false;mutate(d=>{Object.keys(d).forEach(q=>delete d[q]);d.tasks=[];d.bank=[];d.ren={};ensure(d)});toast("All data cleared")}
+if(a==="copy"){const x=document.getElementById("ex");x.select();let p;try{p=navigator.clipboard.writeText(x.value)}catch(err){}Promise.resolve(p).then(()=>toast("Copied")).catch(()=>toast("Press Ctrl/Cmd+C to copy"))}});
+M.addEventListener("change",e=>{const t=e.target,q=t.dataset;let v=t.value;
+if(q.c&&q.f){if(q.k==="n")v=+v||1;if(q.k==="sn")v=+v;const g=MODS[q.c]&&MODS[q.c].gf===q.f;mutate(d=>{const x=(d[q.c]||[]).find(y=>y.id===q.id);if(x)x[q.f]=v},!g)}
+else if(q.s==="mission")mutate(d=>{const m=d.mission;if(m.text.trim()!==v.trim()){if(m.text.trim())m.history.unshift({text:m.text,at:Date.now()});m.history=m.history.slice(0,8);m.text=v}})
+else if(q.s==="v10")mutate(d=>{d.v10=v},true)
+else if(q.s==="role")mutate(d=>{d.roles[+q.i][q.f]=v},true)});
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(page===0)render()});
+load();render();
+</script>
+</body>
+</html>
